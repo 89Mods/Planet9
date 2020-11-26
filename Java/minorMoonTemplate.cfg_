@@ -1,0 +1,115 @@
+@Kopernicus:FOR[{config:packName}]
+{
+    Body
+    {
+        name = {config:planet_name}
+        cacheFile = {config:packName}/cache/{config:planet_name}.bin
+        finalizeOrbit = True
+        Template
+        {
+            name = Gilly
+            removeAllPQSMods = True
+        }
+        Debug
+		{
+		    update = False
+		}
+        Properties
+        {
+            description = {config:description}
+            radius = {config:radius}
+            mass = {config:mass}
+            rotates = True            
+            rotationPeriod = {config:rotationPeriod}
+            displayName = {config:displayName}^N
+            biomeMap = {config:biomes}
+            Biomes
+            {
+							Biome
+							{
+								name = Lowlands
+								displayName = Lowlands
+								color = RGBA(53, 53, 53, 255)
+								value = 1
+							}
+							Biome
+							{
+								name = Highlands
+								displayName = Highlands
+								color = RGBA(115, 115, 115, 255)
+								value = 1
+							}
+            }
+        }
+        Orbit
+        {
+            referenceBody = {config:referenceBody}
+            inclination = {config:inclination}
+            eccentricity = {config:eccentricity}
+            semiMajorAxis = {config:SMA}
+            longitudeOfAscendingNode = {config:LAN}
+            argumentOfPeriapsis = {config:AOP}
+            color = {config:nodeColor}
+            meanAnomalyAtEpoch = {config:meanAnomalyAtEpoch}
+            epoch = {config:epoch}
+            nodeColor = {config:nodeColor}
+        }
+		ScaledVersion
+		{
+			type = Vacuum
+			fadeStart = 30000
+			fadeEnd = 35000
+			Material
+			{
+				specColor = 0.1,0.1,0.1,1
+				shininess = 0.03
+				texture = {config:colormap}
+				normals = {config:normals}
+			}
+		}
+        PQS
+        {
+			minLevel = 2
+			maxLevel = 8
+			minDetailDistance = 4
+			mapMaxHeight = {config:deformity}
+			            fadeStart = 35000
+            fadeEnd = 40000
+            deactivateAltitude = 80000
+						Material
+            {
+                saturation = 1.25
+                contrast = 1.5
+                shininess = 0.0
+                specColor = 0.0, 0.0, 0.0, 1
+            }
+            Mods
+            {
+                AltitudeAlpha
+                {
+                    atmosphereDepth = 8000
+                    order = 9999999
+                    enabled = True
+                    name = _Material_Proj
+                }
+				VertexColorMap
+				{
+					map = {config:colormap}
+					order = 10
+					enabled = True
+					name = _Color
+				}
+				VertexHeightMap16
+				{
+					map = {config:heightmap}
+					offset = 0
+					deformity = {config:deformity}
+					scaleDeformityByRadius = False
+					order = 10
+					enabled = True
+					name = _Height
+				}
+            }
+        }
+    }
+}
