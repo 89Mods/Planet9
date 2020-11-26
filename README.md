@@ -25,6 +25,7 @@ If you use Linux, you can use your preferred package manager instead.
 
 Do NOT run the .jar as an executable by double-clicking on it. It will cause the generator program to freeze eventually.
 Instead, use one of the three bash scripts provided. Select which one to use based on your system memory (RAM):
+
 	run_16G.bat: Use if you have 16GB of RAM.
 	
 	run_12G.bat: Use if you have 12GB of RAM.
