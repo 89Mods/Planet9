@@ -1,0 +1,30 @@
+#Kopernicus cache directory
+
+cache/
+
+#Program outputs
+KopernicusConfigs/minor_moons
+PluginData/124_height.png
+PluginData/124_colors.png
+PluginData/124_normals.png
+PluginData/124_biomes.png
+PluginData/2352_height.png
+PluginData/2352_colors.png
+PluginData/2352_normals.png
+PluginData/2352_biomes.png
+PluginData/3118_height.png
+PluginData/3118_colors.png
+PluginData/3118_normals.png
+PluginData/3118_biomes.png
+PluginData/4001_height.png
+PluginData/4001_colors.png
+PluginData/4001_normals.png
+PluginData/4001_biomes.png
+PluginData/463_height.png
+PluginData/463_colors.png
+PluginData/463_normals.png
+PluginData/463_biomes.png
+
+# Java stuff
+
+Java/bin/
