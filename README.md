@@ -25,11 +25,17 @@ If you use Linux, you can use your preferred package manager instead.
 
 Do NOT run the .jar as an executable by double-clicking on it. It will cause the generator program to freeze eventually.
 Instead, use one of the three bash scripts provided. Select which one to use based on your system memory (RAM):
+
 	run_16G.bat: Use if you have 16GB of RAM.
+	
 	run_12G.bat: Use if you have 12GB of RAM.
+	
 	run_8G.bat:  Use if you have 8GB of RAM.
+	
 	run_lowmem: Use if you have 6GB of RAM. This script WILL drop the resolution of the generated maps down bit a noticable amount to make the generator use less RAM.
+	
 	run_extreme: Only use if you have 32GB of RAM or more. Starts up normally, but will allow you to manually increase generated texture resolution above 8192x4096.
+	
 WARNING: Do not ever use the wrong .bat script for your computer!
 
 Note for Linux and Mac users
