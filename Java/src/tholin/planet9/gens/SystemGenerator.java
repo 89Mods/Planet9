@@ -1,6 +1,7 @@
 package tholin.planet9.gens;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -574,6 +575,7 @@ public class SystemGenerator {
 		new Color(192,192,192),
 		new Color(112,106,106),
 		new Color(158,171,170),
+		new Color(158,171,170),
 		new Color(64, 82, 83),
 		new Color(76, 61, 61),
 		new Color(83, 64, 64),
@@ -599,14 +601,27 @@ public class SystemGenerator {
 		new Color(73, 63, 54),
 		new Color(0, 40, 50),
 		new Color(129, 98, 78),
-		new Color(244, 232, 120),
 		new Color(188, 126, 98),
 		new Color(132, 48, 24),
 		new Color(143, 66, 38),
 		new Color(115, 46, 26),
 		new Color(58, 32, 32),
 		new Color(115, 46, 26),
-		new Color(115, 46, 26),
+		new Color(255, 255, 255),
+		new Color(127, 127, 127),
+		new Color(63, 63, 63),
 	};
+	
+	public static void debugColors() throws Exception {
+		BufferedImage res = new BufferedImage(asteroidColors.length * 32, 128, BufferedImage.TYPE_INT_RGB);
+		for(int i = 0; i < asteroidColors.length; i++) {
+			for(int k = 0; k < 32; k++) {
+				for(int l = 0; l < 128; l++) {
+					res.setRGB(i * 32 + k, l, asteroidColors[i].getRGB());
+				}
+			}
+		}
+		ImageIO.write(res, "png", new File("colors.png"));
+	}
 	
 }

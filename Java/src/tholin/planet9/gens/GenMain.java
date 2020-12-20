@@ -15,6 +15,12 @@ public class GenMain {
 				LOWMEM = true;
 			}
 		}
+		/*try {
+			SystemGenerator.debugColors();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}*/
+		System.exit(1);
 		frame = new JFrame(NAME + " - " + VERSION);
 		GenPanel panel = new GenPanel();
 		frame.setContentPane(panel);
