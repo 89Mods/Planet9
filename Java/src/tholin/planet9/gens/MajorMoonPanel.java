@@ -50,6 +50,7 @@ public class MajorMoonPanel extends JPanel {
 	private JSpinner spinner,spinner_1,spinner_2,spinner_3,spinner_4,spinner_5,spinner_6,spinner_7,spinner_8,spinner_9;
 	private JPanel panel_1,panel_2,panel_3,panel_4;
 	private NoiseConfigDialog[] nConfigDialogs;
+	private CraterConfigDialog[] craterConfigDialogs;
 	
 	@SuppressWarnings("serial")
 	public MajorMoonPanel(String name, long seed1, int radius, GraymoonGen.GraymoonGenSettings settingsIn, GenPanel parent, int idx) {
@@ -371,60 +372,60 @@ public class MajorMoonPanel extends JPanel {
 		
 		JLabel lblColorConfiguration = new JLabel("Color configuration");
 		lblColorConfiguration.setEnabled(false);
-		lblColorConfiguration.setBounds(12, 683, 294, 15);
+		lblColorConfiguration.setBounds(12, 797, 294, 15);
 		add(lblColorConfiguration);
 		
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(12, 703, 592, 2);
+		separator_2.setBounds(12, 817, 592, 2);
 		add(separator_2);
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(RGB(settings.normalColor));
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(142, 710, 32, 32);
+		panel_1.setBounds(142, 824, 32, 32);
 		add(panel_1);
 		
 		JLabel lblBaseColor = new JLabel("Base color:");
 		lblBaseColor.setEnabled(false);
-		lblBaseColor.setBounds(12, 719, 118, 15);
+		lblBaseColor.setBounds(12, 833, 118, 15);
 		add(lblBaseColor);
 		
 		panel_2 = new JPanel();
 		panel_2.setBackground(RGB(settings.mountainsColor));
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(142, 754, 32, 32);
+		panel_2.setBounds(142, 868, 32, 32);
 		add(panel_2);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(RGB(settings.mariasColor));
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(142, 798, 32, 32);
+		panel_3.setBounds(142, 912, 32, 32);
 		add(panel_3);
 		
 		panel_4 = new JPanel();
 		panel_4.setBackground(RGB(settings.secondaryColor));
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(142, 842, 32, 32);
+		panel_4.setBounds(142, 956, 32, 32);
 		add(panel_4);
 		
 		JLabel lblMountainsColor = new JLabel("Mountains:");
 		lblMountainsColor.setEnabled(false);
-		lblMountainsColor.setBounds(12, 765, 118, 15);
+		lblMountainsColor.setBounds(12, 879, 118, 15);
 		add(lblMountainsColor);
 		
 		JLabel lblMaria = new JLabel("Maria:");
 		lblMaria.setEnabled(false);
-		lblMaria.setBounds(12, 809, 70, 15);
+		lblMaria.setBounds(12, 923, 70, 15);
 		add(lblMaria);
 		
 		JLabel lblSecondary = new JLabel("Secondary:");
 		lblSecondary.setEnabled(false);
-		lblSecondary.setBounds(12, 852, 106, 15);
+		lblSecondary.setBounds(12, 966, 106, 15);
 		add(lblSecondary);
 		
 		JButton btnChange = new JButton("Change");
 		btnChange.setEnabled(false);
-		btnChange.setBounds(186, 717, 106, 25);
+		btnChange.setBounds(186, 831, 106, 25);
 		add(btnChange);
 		btnChange.addActionListener(new ActionListener() {
 			@Override
@@ -436,7 +437,7 @@ public class MajorMoonPanel extends JPanel {
 		
 		JButton button = new JButton("Change");
 		button.setEnabled(false);
-		button.setBounds(186, 761, 106, 25);
+		button.setBounds(186, 875, 106, 25);
 		add(button);
 		button.addActionListener(new ActionListener() {
 			@Override
@@ -448,7 +449,7 @@ public class MajorMoonPanel extends JPanel {
 		
 		JButton button_1 = new JButton("Change");
 		button_1.setEnabled(false);
-		button_1.setBounds(186, 804, 106, 25);
+		button_1.setBounds(186, 918, 106, 25);
 		add(button_1);
 		button_1.addActionListener(new ActionListener() {
 			@Override
@@ -460,7 +461,7 @@ public class MajorMoonPanel extends JPanel {
 		
 		JButton button_2 = new JButton("Change");
 		button_2.setEnabled(false);
-		button_2.setBounds(186, 849, 106, 25);
+		button_2.setBounds(186, 963, 106, 25);
 		add(button_2);
 		button_2.addActionListener(new ActionListener() {
 			@Override
@@ -473,6 +474,56 @@ public class MajorMoonPanel extends JPanel {
 		btnApply = new JButton("Apply");
 		btnApply.setBounds(12, 156, 117, 25);
 		add(btnApply);
+		
+		JLabel lblCraterConfiguration = new JLabel("Crater Configuration");
+		lblCraterConfiguration.setEnabled(false);
+		lblCraterConfiguration.setBounds(12, 676, 212, 15);
+		add(lblCraterConfiguration);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setEnabled(false);
+		separator_3.setBounds(12, 696, 592, 2);
+		add(separator_3);
+		
+		craterConfigDialogs = new CraterConfigDialog[3];
+		craterConfigDialogs[0] = new CraterConfigDialog("Bowl craters", settings.bowlCraterConfig);
+		JButton btnMainCraters = new JButton("Bowl craters");
+		btnMainCraters.setEnabled(false);
+		btnMainCraters.setBounds(12, 703, 260, 25);
+		add(btnMainCraters);
+		btnMainCraters.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				craterConfigDialogs[0].setVisible(true);
+				craterConfigDialogs[0].setLocationRelativeTo(GenMain.frame);
+			}
+		});
+		
+		craterConfigDialogs[1] = new CraterConfigDialog("Flattened craters", settings.flattenedCraterConfig);
+		JButton btnFlattenedCraters = new JButton("Flattened craters");
+		btnFlattenedCraters.setEnabled(false);
+		btnFlattenedCraters.setBounds(284, 703, 260, 25);
+		add(btnFlattenedCraters);
+		btnFlattenedCraters.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				craterConfigDialogs[1].setVisible(true);
+				craterConfigDialogs[1].setLocationRelativeTo(GenMain.frame);
+			}
+		});
+		
+		craterConfigDialogs[2] = new CraterConfigDialog("Maria craters", settings.mariaCraterConfig);
+		JButton btnMariaCraters = new JButton("Maria craters");
+		btnMariaCraters.setEnabled(false);
+		btnMariaCraters.setBounds(12, 740, 260, 25);
+		add(btnMariaCraters);
+		btnMariaCraters.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				craterConfigDialogs[2].setVisible(true);
+				craterConfigDialogs[2].setLocationRelativeTo(GenMain.frame);
+			}
+		});
 		btnApply.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -520,6 +571,9 @@ public class MajorMoonPanel extends JPanel {
 				settings.craterFlattenedStart = (Integer)spinner_8.getValue();
 				settings.craterFlattenedEnd = (Integer)spinner_9.getValue();
 				for(NoiseConfigDialog diag:nConfigDialogs) {
+					diag.apply();
+				}
+				for(CraterConfigDialog diag:craterConfigDialogs) {
 					diag.apply();
 				}
 				
@@ -573,6 +627,12 @@ public class MajorMoonPanel extends JPanel {
 				spinner_1.setEnabled(b);
 				lblMariaCraterCount.setEnabled(b);
 				chckbxHasMaria.setEnabled(b);
+				btnMainCraters.setEnabled(b);
+				btnMariaCraters.setEnabled(b);
+				btnFlattenedCraters.setEnabled(b);
+				lblCraterConfiguration.setEnabled(b);
+				separator_3.setEnabled(b);
+				
 			}
 		});
 	}
@@ -611,6 +671,18 @@ public class MajorMoonPanel extends JPanel {
 		panel_2.setBackground(RGB(settings.mountainsColor));
 		panel_3.setBackground(RGB(settings.mariasColor));
 		panel_4.setBackground(RGB(settings.secondaryColor));
+		craterConfigDialogs[0].updateValues(settings.bowlCraterConfig);
+		craterConfigDialogs[1].updateValues(settings.flattenedCraterConfig);
+		craterConfigDialogs[2].updateValues(settings.mariaCraterConfig);
+		nConfigDialogs[0].updateValues(settings.mariaNoise);
+		nConfigDialogs[1].updateValues(settings.mountainNoise);
+		nConfigDialogs[2].updateValues(settings.groundNoiseLargeDetail);
+		nConfigDialogs[3].updateValues(settings.groundNoiseMediumDetail);
+		nConfigDialogs[4].updateValues(settings.groundNoiseSmallDetail);
+		nConfigDialogs[5].updateValues(settings.mountainsNoise);
+		nConfigDialogs[6].updateValues(settings.craterMountainsNoise);
+		nConfigDialogs[7].updateValues(settings.colorNoise);
+		nConfigDialogs[8].updateValues(settings.secondColorNoise);
 	}
 	
 	public void setApplyEnabled(boolean b) {
@@ -628,5 +700,4 @@ public class MajorMoonPanel extends JPanel {
 	public GraymoonGen.GraymoonGenSettings getChangedConfig(){
 		return this.settings;
 	}
-	
 }

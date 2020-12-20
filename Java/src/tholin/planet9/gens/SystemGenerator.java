@@ -44,9 +44,9 @@ public class SystemGenerator {
 	private static final double minorMoonPeri = 200000000.0;
 	private static final double minorMoonApo = 50000000000.0;
 	private static final double minorMoonMinmass = 5e14;
-	private static final double minorMoonMaxmass = 3e17;
+	private static final double minorMoonMaxmass = 3e18;
 	private static final double minorMoonMindensity = 13496.328;
-	private static final double minorMoonMaxdensity = 28740.754;
+	private static final double minorMoonMaxdensity = 40740.754;
 	private final String minorMoonTemplate;
 	
 	public SystemGenerator(int minorMoonCount) {
@@ -55,7 +55,7 @@ public class SystemGenerator {
 		loadDefaultP9Settings();
 		this.majorMoons = new GraymoonGen.GraymoonGenSettings[5];
 		this.majorMoonSeeds = new long[this.majorMoons.length];
-		Random rng = new Random(); //TODO: Remove fixed seed once I'm done testing this.
+		Random rng = new Random();
 		for(int i = 0; i < majorMoons.length; i++) majorMoonSeeds[i] = rng.nextLong();
 		minorMoonOrbitsSeed = rng.nextLong();
 		minorMoonShapeSeed = rng.nextLong();
@@ -451,6 +451,36 @@ public class SystemGenerator {
 		settings.mariaCraterMaxstrength *= settings.planetRadius / 200000.0;
 		settings.mariaCraterMinstrength *= settings.planetRadius / 200000.0;
 		
+		if(rng.nextBoolean()) {
+			double oldPerturbStrength = settings.bowlCraterConfig.perturbStrength;
+			settings.bowlCraterConfig.perturbStrength += rng.nextDouble() * 0.2 - 0.1;
+			settings.flattenedCraterConfig.perturbStrength = settings.bowlCraterConfig.perturbStrength / 1.6;
+			settings.mariaCraterConfig.perturbStrength = settings.bowlCraterConfig.perturbStrength / (1.0 + rng.nextDouble());
+			
+			double oldPerturbScale = settings.bowlCraterConfig.perturbScale;
+			settings.bowlCraterConfig.perturbScale += rng.nextDouble() * 0.3 - 0.15;
+			settings.flattenedCraterConfig.perturbScale = settings.mariaCraterConfig.perturbScale = settings.bowlCraterConfig.perturbScale * (1.0 + rng.nextDouble() * 0.35 - 0.1);
+			
+			settings.bowlCraterConfig.p1 += rng.nextDouble() * 0.2 - 0.1;
+			settings.mariaCraterConfig.p1 = settings.flattenedCraterConfig.p1 = settings.bowlCraterConfig.p1;
+			
+			settings.bowlCraterConfig.p2 += rng.nextDouble() * 0.5 - 0.25;
+			settings.mariaCraterConfig.p2 += rng.nextDouble() * 0.5 - 0.25;
+			settings.flattenedCraterConfig.p2 = settings.mariaCraterConfig.p2;
+			
+			settings.mariaCraterConfig.ejectaPerturbStrength = (settings.bowlCraterConfig.ejectaPerturbStrength += rng.nextDouble() * 0.1 * (settings.bowlCraterConfig.perturbStrength > oldPerturbStrength ? 1.0 : -1.0));
+			settings.flattenedCraterConfig.ejectaPerturbStrength = settings.bowlCraterConfig.ejectaPerturbStrength * (1.5 + rng.nextDouble() * 0.25);
+			
+			settings.mariaCraterConfig.ejectaPerturbScale = (settings.bowlCraterConfig.ejectaPerturbScale += rng.nextDouble() * 0.15 * (settings.bowlCraterConfig.perturbScale > oldPerturbScale ? 1.0 : -1.0));
+			settings.flattenedCraterConfig.ejectaPerturbScale = settings.bowlCraterConfig.ejectaPerturbScale * (1.875 + rng.nextDouble() * 1.0 - 0.5);
+			
+			settings.flattenedCraterConfig.ringFunctMul -= rng.nextDouble() * 0.1;
+			
+			if(rng.nextBoolean()) {
+				settings.mariaCraterConfig.floorHeight = -1.0 + rng.nextDouble() * 0.125;
+			}
+		}
+		
 		return settings;
 	}
 	
@@ -515,6 +545,13 @@ public class SystemGenerator {
 			settings.craterMinsize += rng.nextInt(4) - 2;
 		}
 		settings.craterCount = 24 + rng.nextInt(768);
+		
+		if(rng.nextBoolean()) {
+			settings.craterConfig.perturbStrength += rng.nextDouble() * 0.1;
+			settings.craterConfig.perturbScale += rng.nextDouble() * 0.2 - 0.1;
+			settings.craterConfig.p1 -= rng.nextDouble() * 0.1;
+			settings.craterConfig.p2 -= rng.nextDouble() * 0.5;
+		}
 		
 		return settings;
 	}

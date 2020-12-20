@@ -39,7 +39,7 @@ public class NoiseConfigDialog extends JDialog {
 		super(GenMain.frame, name);
 		this.noise = noise;
 		setModal(false);
-		setPreferredSize(new Dimension(450, 365));
+		setPreferredSize(new Dimension(450, 335));
 		getContentPane().setLayout(null);
 		
 		JLabel lblName = new JLabel(name);
