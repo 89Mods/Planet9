@@ -6,7 +6,7 @@ public class GenMain {
 	
 	public static JFrame frame;
 	public static final String NAME = "Planet 9 - Moon Generator";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.1";
 	public static boolean LOWMEM = false;
 	
 	public static void main(String[] args) {

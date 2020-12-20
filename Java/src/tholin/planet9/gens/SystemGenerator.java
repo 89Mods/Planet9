@@ -43,10 +43,10 @@ public class SystemGenerator {
 	private static final String[] majorMoonInternalNames = new String[] {"3118", "2352", "4001", "463", "124"};
 	private static final double minorMoonPeri = 200000000.0;
 	private static final double minorMoonApo = 50000000000.0;
-	private static final double minorMoonMinmass = 5e14;
-	private static final double minorMoonMaxmass = 3e18;
+	private static final double minorMoonMinmass = 2e14;
+	private static final double minorMoonMaxmass = 7e17;
 	private static final double minorMoonMindensity = 13496.328;
-	private static final double minorMoonMaxdensity = 40740.754;
+	private static final double minorMoonMaxdensity = 38740.754;
 	private final String minorMoonTemplate;
 	
 	public SystemGenerator(int minorMoonCount) {
@@ -95,7 +95,7 @@ public class SystemGenerator {
 		for(int i = 0; i < minorMoonCount; i++) {
 			double inclination,eccentricity,SMA,LAN,AOP;
 			String name = Integer.toHexString(rng.nextInt(0x10000)).toUpperCase() + "x";
-			double mass = CraterDistributer.biasFunction(Math.min(1, Math.abs(rng.nextGaussian() * 0.75)), 0.5) * (minorMoonMaxmass - minorMoonMinmass) + minorMoonMinmass;
+			double mass = CraterDistributer.biasFunction(Math.min(1, Math.abs(rng.nextGaussian() * 0.75)), 0.6) * (minorMoonMaxmass - minorMoonMinmass) + minorMoonMinmass;
 			double density = rng.nextDouble() * (minorMoonMaxdensity - minorMoonMindensity) + minorMoonMindensity;
 			double radius =  Math.pow(mass / density / (Math.PI * 4 / 3), 1.0/3.0);
 			if(i == 0) {
@@ -590,6 +590,23 @@ public class SystemGenerator {
 		new Color(217, 204, 185),
 		new Color(230, 207, 175),
 		new Color(152, 179, 184),
+		new Color(224, 119, 158),
+		new Color(32, 32, 32),
+		new Color(230, 201, 101),
+		new Color(68, 62, 36),
+		new Color(202, 199, 216),
+		new Color(139, 52, 27),
+		new Color(73, 63, 54),
+		new Color(0, 40, 50),
+		new Color(129, 98, 78),
+		new Color(244, 232, 120),
+		new Color(188, 126, 98),
+		new Color(132, 48, 24),
+		new Color(143, 66, 38),
+		new Color(115, 46, 26),
+		new Color(58, 32, 32),
+		new Color(115, 46, 26),
+		new Color(115, 46, 26),
 	};
 	
 }
