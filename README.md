@@ -20,7 +20,7 @@ However, if you are a game developer or similar, and are interested in using thi
 Running
 -------
 After unpacking this zip file into GameData as usual, locate the generator executables in GameData/Planet9/build. It is important that you do not move this folder anywhere else. There is a reason why the application needs to be in this specific folder inside GameData.
-Before trying to run the application, ensure that your default JRE (Java version) is *at least* version 11. The current latest version for windows is 15. For windows and MacOS, the latest version can always be downloaded from this page: https://www.oracle.com/java/technologies/javase-downloads.html
+Before trying to run the application, ensure that your default JRE (Java version) is *at least* version 11. The current latest version for Windows is 16. For Windows and MacOS, the latest version can always be downloaded from this page: https://www.oracle.com/java/technologies/javase-downloads.html
 If you use Linux, you can use your preferred package manager instead.
 
 Do NOT run the .jar as an executable by double-clicking on it. It will cause the generator program to freeze eventually.
