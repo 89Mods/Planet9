@@ -16,9 +16,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import theGhastModding.planetGen.generators.GeneratorResult;
-import theGhastModding.planetGen.generators.GraymoonGen;
-import theGhastModding.planetGen.utils.MapUtils;
+import tholin.planetGen.generators.GeneratorResult;
+import tholin.planetGen.generators.GraymoonGen;
+import tholin.planetGen.utils.MapUtils;
 
 import java.awt.Color;
 import javax.swing.JSeparator;
@@ -486,7 +486,7 @@ public class MajorMoonPanel extends JPanel {
 		add(separator_3);
 		
 		craterConfigDialogs = new CraterConfigDialog[3];
-		craterConfigDialogs[0] = new CraterConfigDialog("Bowl craters", settings.bowlCraterConfig);
+		craterConfigDialogs[0] = new CraterConfigDialog("Bowl craters", settings.mainFeatureDist.bowlCraterConfig);
 		JButton btnMainCraters = new JButton("Bowl craters");
 		btnMainCraters.setEnabled(false);
 		btnMainCraters.setBounds(12, 703, 260, 25);
@@ -499,7 +499,7 @@ public class MajorMoonPanel extends JPanel {
 			}
 		});
 		
-		craterConfigDialogs[1] = new CraterConfigDialog("Flattened craters", settings.flattenedCraterConfig);
+		craterConfigDialogs[1] = new CraterConfigDialog("Flattened craters", settings.mainFeatureDist.flattenedCraterConfig);
 		JButton btnFlattenedCraters = new JButton("Flattened craters");
 		btnFlattenedCraters.setEnabled(false);
 		btnFlattenedCraters.setBounds(284, 703, 260, 25);
@@ -512,7 +512,7 @@ public class MajorMoonPanel extends JPanel {
 			}
 		});
 		
-		craterConfigDialogs[2] = new CraterConfigDialog("Maria craters", settings.mariaCraterConfig);
+		craterConfigDialogs[2] = new CraterConfigDialog("Maria craters", settings.mariaFeatureDist.bowlCraterConfig);
 		JButton btnMariaCraters = new JButton("Maria craters");
 		btnMariaCraters.setEnabled(false);
 		btnMariaCraters.setBounds(12, 740, 260, 25);
@@ -671,9 +671,9 @@ public class MajorMoonPanel extends JPanel {
 		panel_2.setBackground(RGB(settings.mountainsColor));
 		panel_3.setBackground(RGB(settings.mariasColor));
 		panel_4.setBackground(RGB(settings.secondaryColor));
-		craterConfigDialogs[0].updateValues(settings.bowlCraterConfig);
-		craterConfigDialogs[1].updateValues(settings.flattenedCraterConfig);
-		craterConfigDialogs[2].updateValues(settings.mariaCraterConfig);
+		craterConfigDialogs[0].updateValues(settings.mainFeatureDist.bowlCraterConfig);
+		craterConfigDialogs[1].updateValues(settings.mainFeatureDist.flattenedCraterConfig);
+		craterConfigDialogs[2].updateValues(settings.mariaFeatureDist.bowlCraterConfig);
 		nConfigDialogs[0].updateValues(settings.mariaNoise);
 		nConfigDialogs[1].updateValues(settings.mountainNoise);
 		nConfigDialogs[2].updateValues(settings.groundNoiseLargeDetail);

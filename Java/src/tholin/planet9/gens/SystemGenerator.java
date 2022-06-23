@@ -14,13 +14,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import edu.cornell.lassp.houle.RngPack.RanMT;
-import theGhastModding.planetGen.generators.AsteroidMoonGen;
-import theGhastModding.planetGen.generators.GeneratorResult;
-import theGhastModding.planetGen.generators.GraymoonGen;
-import theGhastModding.planetGen.noise.OctaveNoise3D;
-import theGhastModding.planetGen.noise.OctaveWorley;
-import theGhastModding.planetGen.utils.CraterDistributer;
-import theGhastModding.planetGen.utils.MapUtils;
+import tholin.planetGen.generators.AsteroidMoonGen;
+import tholin.planetGen.generators.GeneratorResult;
+import tholin.planetGen.generators.GraymoonGen;
+import tholin.planetGen.noise.OctaveNoise3D;
+import tholin.planetGen.noise.OctaveWorley;
+import tholin.planetGen.utils.CraterDistributer;
+import tholin.planetGen.utils.MapUtils;
+import tholin.planetGen.utils.Maths;
 
 public class SystemGenerator {
 	
@@ -96,7 +97,7 @@ public class SystemGenerator {
 		for(int i = 0; i < minorMoonCount; i++) {
 			double inclination,eccentricity,SMA,LAN,AOP;
 			String name = Integer.toHexString(rng.nextInt(0x10000)).toUpperCase() + "x";
-			double mass = CraterDistributer.biasFunction(Math.min(1, Math.abs(rng.nextGaussian() * 0.75)), 0.6) * (minorMoonMaxmass - minorMoonMinmass) + minorMoonMinmass;
+			double mass = Maths.biasFunction(Math.min(1, Math.abs(rng.nextGaussian() * 0.75)), 0.6) * (minorMoonMaxmass - minorMoonMinmass) + minorMoonMinmass;
 			double density = rng.nextDouble() * (minorMoonMaxdensity - minorMoonMindensity) + minorMoonMindensity;
 			double radius =  Math.pow(mass / density / (Math.PI * 4 / 3), 1.0/3.0);
 			if(i == 0) {
@@ -106,11 +107,11 @@ public class SystemGenerator {
 				LAN = 90;
 				AOP = 230;
 			}else {
-				inclination = 2.5 + CraterDistributer.biasFunction(rng.nextDouble(), 0.25) * 45.0 * (rng.nextBoolean() ? -1.0 : 1.0);
-				eccentricity = Math.min(0.9, CraterDistributer.biasFunction(rng.nextDouble(), 0.5));
+				inclination = 2.5 + Maths.biasFunction(rng.nextDouble(), 0.25) * 45.0 * (rng.nextBoolean() ? -1.0 : 1.0);
+				eccentricity = Math.min(0.9, Maths.biasFunction(rng.nextDouble(), 0.5));
 				double minSMA = -(minorMoonPeri / (eccentricity - 1.0));
 				double maxSMA = minorMoonApo / (1.0 + eccentricity);
-				SMA = CraterDistributer.biasFunction(rng.nextDouble(), 0.5) * (maxSMA - minSMA) + minSMA;
+				SMA = Maths.biasFunction(rng.nextDouble(), 0.5) * (maxSMA - minSMA) + minSMA;
 				LAN = rng.nextInt(360) + rng.nextDouble();
 				AOP = rng.nextInt(360) + rng.nextDouble();
 			}
@@ -200,30 +201,30 @@ public class SystemGenerator {
 	public GeneratorResult genP9PreviewMaps() throws Exception {
 		int origWidth = p9Settings.width;
 		int origHeight = p9Settings.height;
-		p9Settings.width = 512;
-		p9Settings.height = 256;
-		RanMT rng = new RanMT().seedCompletely(p9Seed);
-		GeneratorResult res = GraymoonGen.generate(rng, p9Settings, true, false, false);
-		p9Settings.width = origWidth;
-		p9Settings.height = origHeight;
+		p9Settings.width = p9Settings.colorMapWidth = 512;
+		p9Settings.height = p9Settings.colorMapHeight = 256;
+		RanMT rng = new RanMT().seedCompletely(new Random(p9Seed));
+		GeneratorResult res = new GraymoonGen().generate(rng, p9Settings, true, false);
+		p9Settings.width = p9Settings.colorMapWidth = origWidth;
+		p9Settings.height = p9Settings.colorMapHeight = origHeight;
 		return res;
 	}
 	
 	public GeneratorResult genMajorMoonPreviewMaps(int idx) throws Exception {
 		int origWidth = majorMoons[idx].width;
 		int origHeight = majorMoons[idx].height;
-		majorMoons[idx].width = 512;
-		majorMoons[idx].height = 256;
-		RanMT rng = new RanMT().seedCompletely(majorMoonSeeds[idx]);
-		GeneratorResult res = GraymoonGen.generate(rng, majorMoons[idx], true, false, false);
-		majorMoons[idx].width = origWidth;
-		majorMoons[idx].height = origHeight;
+		majorMoons[idx].width = majorMoons[idx].colorMapWidth = 512;
+		majorMoons[idx].height = majorMoons[idx].colorMapHeight = 256;
+		RanMT rng = new RanMT().seedCompletely(new Random(majorMoonSeeds[idx]));
+		GeneratorResult res = new GraymoonGen().generate(rng, majorMoons[idx], true, false);
+		majorMoons[idx].width = majorMoons[idx].colorMapWidth = origWidth;
+		majorMoons[idx].height = majorMoons[idx].colorMapHeight = origHeight;
 		return res;
 	}
 	
 	public void genMajorMoonMaps(int idx) throws Exception {
-		RanMT rng = new RanMT().seedCompletely(majorMoonSeeds[idx]);
-		GeneratorResult res = GraymoonGen.generate(rng, majorMoons[idx], true, false, false);
+		RanMT rng = new RanMT().seedCompletely(new Random(majorMoonSeeds[idx]));
+		GeneratorResult res = new GraymoonGen().generate(rng, majorMoons[idx], true, false);
 		ImageIO.write(res.heightmap16, "png", new File(plugindataPath + "/" + majorMoonInternalNames[idx] + "_height.png"));
 		ImageIO.write(res.colorMap, "png", new File(plugindataPath + "/" + majorMoonInternalNames[idx] + "_colors.png"));
 		ImageIO.write(res.biomeMap, "png", new File(plugindataPath + "/" + majorMoonInternalNames[idx] + "_biomes.png"));
@@ -238,15 +239,15 @@ public class SystemGenerator {
 		AsteroidMoonGen.AsteroidGenSettings ags = minorMoonGenConfigs.get(idx);
 		int origWidth = ags.width;
 		int origHeight = ags.height;
-		ags.width = 512;
-		ags.height = 256;
+		ags.width = ags.colorMapWidth = 512;
+		ags.height = ags.colorMapHeight = 256;
 		Random rng1 = new Random(minorMoonShapeSeed);
 		long seed = rng1.nextLong();
 		if(idx != 0) for(int i = 0; i < idx; i++) seed = rng1.nextLong();
-		RanMT rng = new RanMT().seedCompletely(seed);
-		GeneratorResult res = AsteroidMoonGen.generate(rng, ags, true, false, false);
-		ags.width = origWidth;
-		ags.height = origHeight;
+		RanMT rng = new RanMT().seedCompletely(new Random(seed));
+		GeneratorResult res = new AsteroidMoonGen().generate(rng, ags, true, false);
+		ags.width = ags.colorMapWidth = origWidth;
+		ags.height = ags.colorMapHeight = origHeight;
 		return res;
 	}
 	
@@ -264,8 +265,8 @@ public class SystemGenerator {
 		Random rng1 = new Random(minorMoonShapeSeed);
 		long seed = rng1.nextLong();
 		if(idx != 0) for(int i = 0; i < idx; i++) seed = rng1.nextLong();
-		RanMT rng = new RanMT().seedCompletely(seed);
-		GeneratorResult res = AsteroidMoonGen.generate(rng, minorMoonGenConfigs.get(idx), true, false, false);
+		RanMT rng = new RanMT().seedCompletely(new Random(seed));
+		GeneratorResult res = new AsteroidMoonGen().generate(rng, minorMoonGenConfigs.get(idx), true, false);
 		String name = minorMoonKopConfigs.get(idx).getName();
 		ImageIO.write(res.heightmap16, "png", new File(plugindataPath + "/" + name + "_height.png"));
 		ImageIO.write(res.colorMap, "png", new File(plugindataPath + "/" + name + "_colors.png"));
@@ -275,7 +276,7 @@ public class SystemGenerator {
 	
 	public void genP9() throws Exception {
 		if(!new File(plugindataPath).isDirectory()) throw new Exception("The PluginData directory was not found or is not a directory.");
-		GeneratorResult res = GraymoonGen.generate(new Random(p9Seed), p9Settings, true, false, false);
+		GeneratorResult res = new GraymoonGen().generate(new Random(p9Seed), p9Settings, true, false);
 		ImageIO.write(res.heightmap16, "png", new File(plugindataPath + "/P9_height.png"));
 		ImageIO.write(res.colorMap, "png", new File(plugindataPath + "/P9_colors.png"));
 		ImageIO.write(res.biomeMap, "png", new File(plugindataPath + "/P9_biomes.png"));
@@ -452,33 +453,33 @@ public class SystemGenerator {
 		settings.mariaCraterMaxstrength *= settings.planetRadius / 200000.0;
 		settings.mariaCraterMinstrength *= settings.planetRadius / 200000.0;
 		
+		settings.mainFeatureDist.ravinesEnabled = false;
 		if(rng.nextBoolean()) {
-			double oldPerturbStrength = settings.bowlCraterConfig.perturbStrength;
-			settings.bowlCraterConfig.perturbStrength += rng.nextDouble() * 0.2 - 0.1;
-			settings.flattenedCraterConfig.perturbStrength = settings.bowlCraterConfig.perturbStrength / 1.6;
-			settings.mariaCraterConfig.perturbStrength = settings.bowlCraterConfig.perturbStrength / (1.0 + rng.nextDouble());
+			double oldPerturbStrength = settings.mainFeatureDist.bowlCraterConfig.perturbStrength;
+			settings.mainFeatureDist.bowlCraterConfig.perturbStrength += rng.nextDouble() * 0.2 - 0.1;
+			settings.mainFeatureDist.flattenedCraterConfig.perturbStrength = settings.mainFeatureDist.bowlCraterConfig.perturbStrength / 1.6;
+			settings.mariaFeatureDist.bowlCraterConfig.perturbStrength = settings.mainFeatureDist.bowlCraterConfig.perturbStrength / (1.0 + rng.nextDouble());
 			
-			double oldPerturbScale = settings.bowlCraterConfig.perturbScale;
-			settings.bowlCraterConfig.perturbScale += rng.nextDouble() * 0.3 - 0.15;
-			settings.flattenedCraterConfig.perturbScale = settings.mariaCraterConfig.perturbScale = settings.bowlCraterConfig.perturbScale * (1.0 + rng.nextDouble() * 0.35 - 0.1);
+			double oldPerturbScale = settings.mainFeatureDist.bowlCraterConfig.perturbScale;
+			settings.mainFeatureDist.bowlCraterConfig.perturbScale += rng.nextDouble() * 0.3 - 0.15;
+			settings.mainFeatureDist.flattenedCraterConfig.perturbScale = settings.mariaFeatureDist.bowlCraterConfig.perturbScale = settings.mainFeatureDist.bowlCraterConfig.perturbScale * (1.0 + rng.nextDouble() * 0.35 - 0.1);
 			
-			settings.bowlCraterConfig.p1 += rng.nextDouble() * 0.2 - 0.1;
-			settings.mariaCraterConfig.p1 = settings.flattenedCraterConfig.p1 = settings.bowlCraterConfig.p1;
+			settings.mainFeatureDist.bowlCraterConfig.p1 = settings.mariaFeatureDist.bowlCraterConfig.p1 = 1.8 + rng.nextDouble() * 0.2 - 0.1;
+			settings.mainFeatureDist.flattenedCraterConfig.p1 = 2.8 + rng.nextDouble() * 0.4 - 0.2;
 			
-			settings.bowlCraterConfig.p2 += rng.nextDouble() * 0.5 - 0.25;
-			settings.mariaCraterConfig.p2 += rng.nextDouble() * 0.5 - 0.25;
-			settings.flattenedCraterConfig.p2 = settings.mariaCraterConfig.p2;
+			settings.mainFeatureDist.bowlCraterConfig.p2 = settings.mariaFeatureDist.bowlCraterConfig.p2 = 4.0 + rng.nextDouble() * 0.4 - 0.2;
+			settings.mainFeatureDist.flattenedCraterConfig.p2 = 3.2 + rng.nextDouble() * 0.4 - 0.2;
 			
-			settings.mariaCraterConfig.ejectaPerturbStrength = (settings.bowlCraterConfig.ejectaPerturbStrength += rng.nextDouble() * 0.1 * (settings.bowlCraterConfig.perturbStrength > oldPerturbStrength ? 1.0 : -1.0));
-			settings.flattenedCraterConfig.ejectaPerturbStrength = settings.bowlCraterConfig.ejectaPerturbStrength * (1.5 + rng.nextDouble() * 0.25);
+			settings.mariaFeatureDist.bowlCraterConfig.ejectaPerturbStrength = (settings.mainFeatureDist.bowlCraterConfig.ejectaPerturbStrength += rng.nextDouble() * 0.1 * (settings.mainFeatureDist.bowlCraterConfig.perturbStrength > oldPerturbStrength ? 1.0 : -1.0));
+			settings.mainFeatureDist.flattenedCraterConfig.ejectaPerturbStrength = settings.mainFeatureDist.bowlCraterConfig.ejectaPerturbStrength * (1.5 + rng.nextDouble() * 0.25);
 			
-			settings.mariaCraterConfig.ejectaPerturbScale = (settings.bowlCraterConfig.ejectaPerturbScale += rng.nextDouble() * 0.15 * (settings.bowlCraterConfig.perturbScale > oldPerturbScale ? 1.0 : -1.0));
-			settings.flattenedCraterConfig.ejectaPerturbScale = settings.bowlCraterConfig.ejectaPerturbScale * (1.875 + rng.nextDouble() * 1.0 - 0.5);
+			settings.mariaFeatureDist.bowlCraterConfig.ejectaPerturbScale = (settings.mainFeatureDist.bowlCraterConfig.ejectaPerturbScale += rng.nextDouble() * 0.15 * (settings.mainFeatureDist.bowlCraterConfig.perturbScale > oldPerturbScale ? 1.0 : -1.0));
+			settings.mainFeatureDist.flattenedCraterConfig.ejectaPerturbScale = settings.mainFeatureDist.bowlCraterConfig.ejectaPerturbScale * (1.875 + rng.nextDouble() * 1.0 - 0.5);
 			
-			settings.flattenedCraterConfig.ringFunctMul -= rng.nextDouble() * 0.1;
+			settings.mainFeatureDist.flattenedCraterConfig.ringFunctMul -= rng.nextDouble() * 0.1;
 			
 			if(rng.nextBoolean()) {
-				settings.mariaCraterConfig.floorHeight = -1.0 + rng.nextDouble() * 0.125;
+				settings.mariaFeatureDist.bowlCraterConfig.floorHeight = -1.0 + rng.nextDouble() * 0.125;
 			}
 		}
 		

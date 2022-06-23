@@ -12,7 +12,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import theGhastModding.planetGen.generators.GeneratorResult;
+import tholin.planetGen.generators.GeneratorResult;
 
 public class GenPanel extends JPanel {
 	

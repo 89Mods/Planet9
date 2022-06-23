@@ -3,7 +3,7 @@ package tholin.planet9.gens;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import theGhastModding.planetGen.generators.GeneratorResult;
+import tholin.planetGen.generators.GeneratorResult;
 
 public class QaDPlanetRenderer {
 	

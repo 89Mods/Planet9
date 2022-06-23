@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
-import theGhastModding.planetGen.utils.CraterGenerator.CraterConfig;
+import tholin.planetGen.utils.CraterGenerator.CraterConfig;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JSpinner;

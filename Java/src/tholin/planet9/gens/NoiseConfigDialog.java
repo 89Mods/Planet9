@@ -13,14 +13,14 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import theGhastModding.planetGen.noise.NoiseConfig;
-import theGhastModding.planetGen.noise.NoiseFunction;
-import theGhastModding.planetGen.noise.OctaveNoise2D;
-import theGhastModding.planetGen.noise.OctaveNoise3D;
-import theGhastModding.planetGen.noise.OctaveWorley;
-import theGhastModding.planetGen.noise.PerlinNoise2D;
-import theGhastModding.planetGen.noise.PerlinNoise3D;
-import theGhastModding.planetGen.noise.WorleyNoise;
+import tholin.planetGen.noise.NoiseConfig;
+import tholin.planetGen.noise.NoiseFunction;
+import tholin.planetGen.noise.OctaveNoise2D;
+import tholin.planetGen.noise.OctaveNoise3D;
+import tholin.planetGen.noise.OctaveWorley;
+import tholin.planetGen.noise.PerlinNoise2D;
+import tholin.planetGen.noise.PerlinNoise3D;
+import tholin.planetGen.noise.WorleyNoise;
 
 import javax.swing.JButton;
 

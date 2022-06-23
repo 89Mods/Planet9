@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 
-import theGhastModding.planetGen.generators.GeneratorResult;
+import tholin.planetGen.generators.GeneratorResult;
 
 import javax.swing.UIManager;
 
