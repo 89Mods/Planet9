@@ -58,4 +58,4 @@ Once the process completes with no errors, you are already done. You may now clo
 
 Contact
 -------
-If you have any questions, bug reports, etc., you can ping me in the official Kopernicus discord server as TheGhastModding#7559. Please do not DM me unless you are not in the Kopernicus discord server or it is important.
+If you have any questions, bug reports, etc., you can ping me in the official Kopernicus discord server as Tholin#7559. Please do not DM me unless you are not in the Kopernicus discord server or it is important.
